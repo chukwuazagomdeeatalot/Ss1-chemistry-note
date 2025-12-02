@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Producer AI — Generate Music</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Tone.js CDN -->
+  <script src="https://unpkg.com/tone@latest/build/Tone.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <h1>Producer AI</h1>
+    <p>Create beats and melodies from a vibe prompt.</p>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h2>Prompt and style</h2>
+
+      <div class="grid">
+        <div class="form-group">
+          <label for="prompt">Describe your track</label>
+          <textarea id="prompt" rows="3" placeholder="e.g., dark trap beat with moody pads and fast hi-hats"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="style">Preset</label>
+          <select id="style">
+            <option value="trap">Trap</option>
+            <option value="afrobeats">Afrobeats</option>
+            <option value="house">House</option>
+            <option value="lofi">Lofi</option>
+            <option value="cinematic">Cinematic</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="length">Length (bars)</label>
+          <input id="length" type="number" min="4" max="64" value="16" />
+        </div>
+
+        <div class="form-group">
+          <label for="seed">Random seed</label>
+          <input id="seed" type="number" min="0" max="999999" value="42" />
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button id="generateBtn">Generate arrangement</button>
+        <button id="playBtn" disabled>Play</button>
+        <button id="stopBtn" disabled>Stop</button>
+        <button id="recordBtn" disabled>Record</button>
+        <button id="downloadBtn" disabled>Download</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Mixer</h2>
+      <div class="mixer">
+        <div class="channel">
+          <h3>Drums</h3>
+          <label class="slider">
+            <span>Volume</span>
+            <input type="range" id="volDrums" min="-24" max="6" value="-6" />
+          </label>
+          <label class="slider">
+            <span>Swing</span>
+            <input type="range" id="swing" min="0" max="0.3" step="0.01" value="0.12" />
+          </label>
+        </div>
+
+        <div class="channel">
+          <h3>Bass</h3>
+          <label class="slider">
+            <span>Volume</span>
+            <input type="range" id="volBass" min="-24" max="6" value="-8" />
+          </label>
+          <label class="slider">
+            <span>Drive</span>
+            <input type="range" id="bassDrive" min="0" max="1" step="0.01" value="0.2" />
+          </label>
+        </div>
+
+        <div class="channel">
+          <h3>Melody</h3>
+          <label class="slider">
+            <span>Volume</span>
+            <input type="range" id="volLead" min="-24" max="6" value="-10" />
+          </label>
+          <label class="slider">
+            <span>Delay</span>
+            <input type="range" id="leadDelay" min="0" max="0.7" step="0.01" value="0.25" />
+          </label>
+        </div>
+
+        <div class="channel">
+          <h3>Chords</h3>
+          <label class="slider">
+            <span>Volume</span>
+            <input type="range" id="volPads" min="-24" max="6" value="-12" />
+          </label>
+          <label class="slider">
+            <span>Reverb</span>
+            <input type="range" id="padsReverb" min="0" max="0.9" step="0.01" value="0.6" />
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Visualizer</h2>
+      <canvas id="scope" width="800" height="180"></canvas>
+      <p class="hint">Tip: Change the seed or prompt for different results.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Arrangement</h2>
+      <div id="arrangement" class="arrangement"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Made with Tone.js • Runs entirely in your browser</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
